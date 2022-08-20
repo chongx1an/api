@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -44,7 +45,9 @@ class ProductController extends Controller
      */
     public function get($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        return new ProductResource($product);
     }
 
     /**
@@ -54,9 +57,15 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+
+        $product = Product::findOrFail($id);
+
+        $product->update($validated);
+
+        return new ProductResource($product);
     }
 
     /**
