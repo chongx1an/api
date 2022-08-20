@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->double('price', 8, 2);
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
             $table->integer('inventory');
             $table->softDeletes('deleted_at');
             $table->timestamps();
